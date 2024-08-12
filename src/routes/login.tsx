@@ -10,8 +10,10 @@ import {
 import { Input } from '@/components/ui/input';
 import { Separator } from '@/components/ui/separator';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import { z } from 'zod';
 
 const loginSchema = z.object({
@@ -22,6 +24,7 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 function LoginForm() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
@@ -31,6 +34,7 @@ function LoginForm() {
     },
   });
   const onSubmit = form.handleSubmit(async (data) => {
+    setLoading(true);
     const res = await fetch('/api/auth/login', {
       method: 'POST',
       body: JSON.stringify(data),
@@ -39,11 +43,9 @@ function LoginForm() {
       },
     });
     if (res.ok) {
+      setLoading(false);
+      toast.success('Logged in successfully');
       navigate('/dashboard');
-      location.reload();
-      // Handle success
-    } else {
-      // Handle error
     }
   });
 
@@ -76,7 +78,9 @@ function LoginForm() {
             </FormItem>
           )}
         />
-        <Button>Sign In</Button>
+        <Button type="submit" disabled={loading}>
+          Sign In
+        </Button>
       </form>
     </Form>
   );

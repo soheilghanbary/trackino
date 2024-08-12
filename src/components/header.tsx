@@ -1,15 +1,62 @@
+import { DotsVerticalIcon } from '@radix-ui/react-icons';
 import Cookie from 'js-cookie';
-import { AirVent } from 'lucide-react';
+import {
+  AirVent,
+  LayoutDashboard,
+  LogOutIcon,
+  PieChart,
+  Wheat,
+} from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ModeToggle } from './mode-toggle';
-import { buttonVariants } from './ui/button';
+import { Button, buttonVariants } from './ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from './ui/dropdown-menu';
 
 const CheckSigned = () => {
   const token = Cookie.get('auth_token');
   return token ? (
-    <Link to={'/dashboard'} className={buttonVariants()}>
-      Dashboard
-    </Link>
+    <>
+      <Link to={'/dashboard'} className={buttonVariants()}>
+        Dashboard
+      </Link>
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant={'outline'} size={'icon'}>
+            <DotsVerticalIcon className="size-4" />
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuItem asChild>
+            <Link to={'/dashboard'}>
+              <PieChart className="mr-2 size-4" />
+              Dashboard
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuItem asChild>
+            <Link to={'/about'}>
+              <Wheat className="mr-2 size-4" />
+              About
+            </Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem asChild>
+            <Link
+              to={'/sign-out'}
+              className="text-rose-500 focus:text-rose-600"
+            >
+              <LogOutIcon className="mr-2 size-4" />
+              Sign Out
+            </Link>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    </>
   ) : (
     <Link to={'/login'} className={buttonVariants()}>
       Login

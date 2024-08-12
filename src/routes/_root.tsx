@@ -5,6 +5,7 @@ import { About } from './about';
 import { Dashboard } from './dashboard';
 import { Home } from './home';
 import { Login } from './login';
+import { LogOut } from './logout';
 import { Register } from './register';
 
 export const RouteProvider = () => (
@@ -15,6 +16,7 @@ export const RouteProvider = () => (
       <Route path="about" element={<About />} />
       <Route path="login" element={<Login />} />
       <Route path="register" element={<Register />} />
+      <Route path="sign-out" element={<LogOut />} />
       <Route
         path="/dashboard"
         element={

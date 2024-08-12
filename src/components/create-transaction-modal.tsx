@@ -5,23 +5,23 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { useAddTransaction } from "@/hooks/useTransaction";
+} from '@/components/ui/dialog';
+import { useAddTransaction } from '@/hooks/useTransaction';
 import {
   type CreateTransactionSchema,
   createTransactionSchema,
-} from "@/schemas/transaction";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { type ReactNode, useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { Button } from "./ui/button";
-import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
-import { Input } from "./ui/input";
+} from '@/schemas/transaction';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { type ReactNode, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { Button } from './ui/button';
+import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
+import { Input } from './ui/input';
 
 type TransactionFormProps = {
   onClose?: () => void;
-  type: "income" | "expense";
+  type: 'income' | 'expense';
 };
 
 const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
@@ -30,7 +30,7 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
     resolver: zodResolver(createTransactionSchema),
     defaultValues: {
       amount: 0,
-      description: "",
+      description: '',
       date: new Date(),
       type,
     },
@@ -39,7 +39,7 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
   const onSubmit = form.handleSubmit((data) => {
     mutate(data, {
       onSuccess() {
-        toast.success("Transaction created.");
+        toast.success('Transaction created.');
         form.reset();
         onClose?.();
       },
@@ -80,7 +80,7 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
           <Button
             disabled={isPending}
             type="button"
-            variant={"secondary"}
+            variant={'secondary'}
             onClick={onClose}
           >
             Cancel
@@ -95,7 +95,7 @@ export function CreateTransactionModal({
   type,
   trigger,
 }: {
-  type: "income" | "expense";
+  type: 'income' | 'expense';
   trigger: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -105,14 +105,14 @@ export function CreateTransactionModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>
-            Create New{" "}
+            Create New{' '}
             <span
               className={
-                type === "income" ? "text-emerald-500" : "text-red-500"
+                type === 'income' ? 'text-emerald-500' : 'text-red-500'
               }
             >
               {type}
-            </span>{" "}
+            </span>{' '}
             Transaction
           </DialogTitle>
           <DialogDescription>
