@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -6,15 +6,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const loginSchema = z.object({
   email: z.string().email(),
@@ -29,24 +29,26 @@ function LoginForm() {
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
   const onSubmit = form.handleSubmit(async (data) => {
     setLoading(true);
-    const res = await fetch('/api/auth/login', {
-      method: 'POST',
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
-    if (res.ok) {
+    if (!res.ok) {
       setLoading(false);
-      toast.success('Logged in successfully');
-      navigate('/dashboard');
+      return toast.error("Email or Password is Wrong!");
     }
+    setLoading(false);
+    toast.success("Logged in successfully");
+    navigate("/dashboard");
   });
 
   return (
@@ -95,7 +97,7 @@ export function Login() {
         </h1>
         <Separator />
         <LoginForm />
-        <Link to={'/register'} className="mt-2 text-sm underline">
+        <Link to={"/register"} className="mt-2 text-sm underline">
           Dosn't have Account?
         </Link>
       </section>

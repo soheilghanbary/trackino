@@ -5,6 +5,7 @@ import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { authRoute } from "./routes/auth";
 import { transactionRoute } from "./routes/transaction";
+import { userRoute } from "./routes/user";
 
 const app = new Hono();
 
@@ -24,6 +25,7 @@ const apiRoutes = app
   .basePath("/api")
   .route("/auth", authRoute)
   .route("/transactions", transactionRoute)
+  .route("/user", userRoute)
   .get("/hello", (c) => c.json({ msg: "Hello from Hono🔥!" }));
 
 // static files

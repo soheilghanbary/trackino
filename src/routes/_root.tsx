@@ -1,12 +1,13 @@
-import { Header } from '@/components/header';
-import { ProtectedRoute } from '@/components/protected-route';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { About } from './about';
-import { Dashboard } from './dashboard';
-import { Home } from './home';
-import { Login } from './login';
-import { LogOut } from './logout';
-import { Register } from './register';
+import { Header } from "@/components/header";
+import { ProtectedRoute } from "@/components/protected-route";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { About } from "./about";
+import { Dashboard } from "./dashboard";
+import { Home } from "./home";
+import { Login } from "./login";
+import { LogOut } from "./logout";
+import { Register } from "./register";
+import { Settings } from "./settings";
 
 export const RouteProvider = () => (
   <BrowserRouter>
@@ -22,6 +23,14 @@ export const RouteProvider = () => (
         element={
           <ProtectedRoute>
             <Dashboard />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/settings"
+        element={
+          <ProtectedRoute>
+            <Settings />
           </ProtectedRoute>
         }
       />
