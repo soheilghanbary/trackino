@@ -75,7 +75,7 @@ export default function Settings() {
         </CardContent>
         <CardFooter className="border-separate border-t bg-muted/20 p-4">
           <Button disabled={isPending} onClick={() => mutate()}>
-            Save Changes
+            Save
           </Button>
         </CardFooter>
       </Card>

@@ -1,6 +1,6 @@
 export default function About() {
   return (
-    <div className="flex h-dvh w-full flex-col items-center justify-center">
+    <div className="container mx-auto flex w-full flex-col justify-center p-4">
       <div className="space-y-2">
         <h1 className="font-black text-4xl">Trackino</h1>
         <p className="font-medium">The minimal Expense Tracker</p>

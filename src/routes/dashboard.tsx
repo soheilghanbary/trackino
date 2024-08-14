@@ -95,7 +95,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-start font-medium text-muted-foreground">
-              Income
+              Expense
             </p>
             <CountUp
               preserveValue
@@ -113,7 +113,7 @@ export default function Dashboard() {
           </div>
           <div>
             <p className="text-start font-medium text-muted-foreground">
-              Income
+              Balance
             </p>
             <CountUp
               preserveValue
