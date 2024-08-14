@@ -10,7 +10,7 @@ export default function About() {
             {new Date().toLocaleDateString()}
           </li>
           <li>
-            <span className="text-muted-foreground">Version:</span> 0.9.1
+            <span className="text-muted-foreground">Version:</span> 1.0.1
           </li>
           <li>
             <span className="text-muted-foreground">Developed By:</span> Soheil
