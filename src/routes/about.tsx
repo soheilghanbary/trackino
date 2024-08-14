@@ -1,4 +1,4 @@
-export function About() {
+export default function About() {
   return (
     <div className="flex h-dvh w-full flex-col items-center justify-center">
       <div className="space-y-2">

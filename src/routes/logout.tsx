@@ -1,13 +1,13 @@
-import { Button } from '@/components/ui/button';
-import Cookie from 'js-cookie';
-import { Link, useNavigate } from 'react-router-dom';
+import { Button } from "@/components/ui/button";
+import Cookie from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 
-export function LogOut() {
+export default function LogOut() {
   const navigate = useNavigate();
 
   const onSignOut = () => {
-    Cookie.remove('auth_token');
-    navigate('/');
+    Cookie.remove("auth_token");
+    navigate("/");
     location.reload();
   };
 
@@ -21,11 +21,11 @@ export function LogOut() {
           </p>
         </div>
         <div className="flex items-center gap-4">
-          <Button onClick={onSignOut} variant={'destructive'}>
+          <Button onClick={onSignOut} variant={"destructive"}>
             Sign Out
           </Button>
-          <Button asChild variant={'outline'}>
-            <Link to={'/dashboard'}>Cancel</Link>
+          <Button asChild variant={"outline"}>
+            <Link to={"/dashboard"}>Cancel</Link>
           </Button>
         </div>
       </section>

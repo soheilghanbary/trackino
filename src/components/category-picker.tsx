@@ -2,12 +2,12 @@ import {
   Popover,
   PopoverContent,
   PopoverTrigger,
-} from "@/components/ui/popover";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
-import { CircleOff } from "lucide-react";
-import { useTheme } from "./providers/theme-provider";
-import { Button } from "./ui/button";
+} from '@/components/ui/popover';
+import data from '@emoji-mart/data';
+import Picker from '@emoji-mart/react';
+import { CircleOff } from 'lucide-react';
+import { useTheme } from './providers/theme-provider';
+import { Button } from './ui/button';
 
 type Props = {
   icon: string;
@@ -21,14 +21,14 @@ export function CategoryPicker({ icon, onChange }: Props) {
       <PopoverTrigger asChild>
         <Button
           className="flex h-28 w-full flex-col items-center justify-center gap-2"
-          variant={"outline"}
+          variant={'outline'}
         >
           {icon ? (
             <span className="text-4xl">{icon}</span>
           ) : (
             <CircleOff className="size-8" />
           )}
-          {icon ? "Change Icon" : "Select Icon"}
+          {icon ? 'Change Icon' : 'Select Icon'}
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-full" align="center">

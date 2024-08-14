@@ -1,9 +1,9 @@
-import { CreateTransactionModal } from '@/components/create-transaction-modal';
-import { DeleteTransactionModal } from '@/components/delete-transaction-modal';
-import { Spinner } from '@/components/icons/spinner';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Separator } from '@/components/ui/separator';
+import { CreateTransactionModal } from "@/components/create-transaction-modal";
+import { DeleteTransactionModal } from "@/components/delete-transaction-modal";
+import { Spinner } from "@/components/icons/spinner";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
 import {
   Table,
   TableBody,
@@ -12,11 +12,11 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table';
-import { useTransactions } from '@/hooks/useTransaction';
-import { CardStackIcon } from '@radix-ui/react-icons';
-import { TrendingDown, TrendingUp } from 'lucide-react';
-import CountUp from 'react-countup';
+} from "@/components/ui/table";
+import { useTransactions } from "@/hooks/useTransaction";
+import { CardStackIcon } from "@radix-ui/react-icons";
+import { TrendingDown, TrendingUp } from "lucide-react";
+import CountUp from "react-countup";
 
 const Loading = () => (
   <div className="mx-auto flex min-h-60 w-full items-center justify-center">
@@ -24,16 +24,16 @@ const Loading = () => (
   </div>
 );
 
-export function Dashboard() {
+export default function Dashboard() {
   const { data, isPending } = useTransactions();
   if (isPending || !data) return <Loading />;
 
   const income = data
-    .filter((transaction) => transaction.type === 'income')
+    .filter((transaction) => transaction.type === "income")
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 
   const expenses = data
-    .filter((transaction) => transaction.type === 'expense')
+    .filter((transaction) => transaction.type === "expense")
     .reduce((sum, transaction) => sum + transaction.amount, 0);
 
   const balance = income - expenses;
@@ -48,7 +48,7 @@ export function Dashboard() {
           <CreateTransactionModal
             trigger={
               <Button
-                variant={'outline'}
+                variant={"outline"}
                 className="border-emerald-500 bg-emerald-950 text-white hover:bg-emerald-700 hover:text-white"
               >
                 New Income 🤑
@@ -59,7 +59,7 @@ export function Dashboard() {
           <CreateTransactionModal
             trigger={
               <Button
-                variant={'outline'}
+                variant={"outline"}
                 className="border-rose-500 bg-rose-950 text-white hover:bg-rose-700 hover:text-white"
               >
                 New Expense 😤
@@ -147,7 +147,7 @@ export function Dashboard() {
                 {transaction.description}
               </TableCell>
               <TableCell>
-                {transaction.type === 'income' ? (
+                {transaction.type === "income" ? (
                   <Badge className="bg-emerald-300/10 text-emerald-500 hover:bg-emerald-400/20">
                     Income
                   </Badge>

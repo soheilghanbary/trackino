@@ -1,6 +1,6 @@
-import { Skeleton } from "@/components/ui/skeleton";
-import { cn } from "@/lib/utils";
-import type { ReactNode } from "react";
+import { Skeleton } from '@/components/ui/skeleton';
+import { cn } from '@/lib/utils';
+import type { ReactNode } from 'react';
 
 function SkeletonWrapper({
   children,
@@ -13,7 +13,7 @@ function SkeletonWrapper({
 }) {
   if (!isLoading) return children;
   return (
-    <Skeleton className={cn(fullWidth && "w-full")}>
+    <Skeleton className={cn(fullWidth && 'w-full')}>
       <div className="opacity-0">{children}</div>
     </Skeleton>
   );

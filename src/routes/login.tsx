@@ -88,7 +88,7 @@ function LoginForm() {
   );
 }
 
-export function Login() {
+export default function Login() {
   return (
     <div className="flex h-dvh flex-col items-center justify-center">
       <section className="mx-auto grid w-full max-w-xs gap-y-2">

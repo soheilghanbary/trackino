@@ -1,39 +1,50 @@
 import { Header } from "@/components/header";
+import { Spinner } from "@/components/icons/spinner";
 import { ProtectedRoute } from "@/components/protected-route";
+import { Suspense, lazy } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { About } from "./about";
-import { Dashboard } from "./dashboard";
-import { Home } from "./home";
-import { Login } from "./login";
-import { LogOut } from "./logout";
-import { Register } from "./register";
-import { Settings } from "./settings";
+
+const Home = lazy(() => import("./home"));
+const About = lazy(() => import("./about"));
+const Register = lazy(() => import("./register"));
+const Login = lazy(() => import("./login"));
+const LogOut = lazy(() => import("./logout"));
+const Dashboard = lazy(() => import("./dashboard"));
+const Settings = lazy(() => import("./settings"));
+
+const LoadingPage = () => (
+  <div className="mx-auto flex min-h-40 w-full items-center justify-center">
+    <Spinner className="fill-primary" />
+  </div>
+);
 
 export const RouteProvider = () => (
   <BrowserRouter>
     <Header />
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="about" element={<About />} />
-      <Route path="login" element={<Login />} />
-      <Route path="register" element={<Register />} />
-      <Route path="sign-out" element={<LogOut />} />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/settings"
-        element={
-          <ProtectedRoute>
-            <Settings />
-          </ProtectedRoute>
-        }
-      />
-    </Routes>
+    <Suspense fallback={<LoadingPage />}>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="sign-out" element={<LogOut />} />
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <ProtectedRoute>
+              <Settings />
+            </ProtectedRoute>
+          }
+        />
+      </Routes>
+    </Suspense>
   </BrowserRouter>
 );

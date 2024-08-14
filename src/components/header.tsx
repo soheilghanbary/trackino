@@ -1,45 +1,45 @@
-import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import Cookie from "js-cookie";
-import { AirVent, LogOutIcon, PieChart, Settings, Wheat } from "lucide-react";
-import { Link } from "react-router-dom";
-import { ModeToggle } from "./mode-toggle";
-import { Button, buttonVariants } from "./ui/button";
+import { DotsVerticalIcon } from '@radix-ui/react-icons';
+import Cookie from 'js-cookie';
+import { AirVent, LogOutIcon, PieChart, Settings, Wheat } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { ModeToggle } from './mode-toggle';
+import { Button, buttonVariants } from './ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from './ui/dropdown-menu';
 
 const CheckSigned = () => {
-  const token = Cookie.get("auth_token");
+  const token = Cookie.get('auth_token');
   return token ? (
     <>
-      <Link to={"/dashboard"} className={buttonVariants()}>
+      <Link to={'/dashboard'} className={buttonVariants()}>
         Dashboard
       </Link>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant={"outline"} size={"icon"}>
+          <Button variant={'outline'} size={'icon'}>
             <DotsVerticalIcon className="size-4" />
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <DropdownMenuItem asChild>
-            <Link to={"/dashboard"}>
+            <Link to={'/dashboard'}>
               <PieChart className="mr-2 size-4" />
               Dashboard
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to={"/settings"}>
+            <Link to={'/settings'}>
               <Settings className="mr-2 size-4" />
               Manage
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>
-            <Link to={"/about"}>
+            <Link to={'/about'}>
               <Wheat className="mr-2 size-4" />
               About
             </Link>
@@ -47,7 +47,7 @@ const CheckSigned = () => {
           <DropdownMenuSeparator />
           <DropdownMenuItem asChild>
             <Link
-              to={"/sign-out"}
+              to={'/sign-out'}
               className="text-rose-500 focus:text-rose-600"
             >
               <LogOutIcon className="mr-2 size-4" />
@@ -58,7 +58,7 @@ const CheckSigned = () => {
       </DropdownMenu>
     </>
   ) : (
-    <Link to={"/login"} className={buttonVariants()}>
+    <Link to={'/login'} className={buttonVariants()}>
       Login
     </Link>
   );
@@ -68,7 +68,7 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-separate border-b bg-card p-2">
       <nav className="container flex items-center justify-between gap-4">
-        <Link to={"/"} className="flex items-center">
+        <Link to={'/'} className="flex items-center">
           <AirVent className="mr-2 size-5" />
           <h3 className="font-bold text-foreground tracking-tight">Trackino</h3>
         </Link>

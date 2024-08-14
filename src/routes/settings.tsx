@@ -24,7 +24,7 @@ const Loading = () => (
   </div>
 );
 
-export function Settings() {
+export default function Settings() {
   const nameRef = useRef<HTMLInputElement>(null);
   const { data, isLoading } = useQuery({
     queryKey: ["user"],

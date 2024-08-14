@@ -1,4 +1,3 @@
-"use client";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -61,7 +60,7 @@ export function SelectCurrency() {
         Currencies.find((c) => c.value === data.currency) || null
       );
     },
-    onError: (e) => {
+    onError: () => {
       toast.error("Something went wrong", {
         id: "update-currency",
       });

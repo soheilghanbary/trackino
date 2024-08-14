@@ -1,20 +1,20 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { PlusSquare } from "lucide-react";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { toast } from "sonner";
-import { z } from "zod";
-import { CategoryPicker } from "./category-picker";
-import { DialogHeader } from "./ui/dialog";
+} from '@/components/ui/dialog';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { PlusSquare } from 'lucide-react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'sonner';
+import { z } from 'zod';
+import { CategoryPicker } from './category-picker';
+import { DialogHeader } from './ui/dialog';
 import {
   Form,
   FormControl,
@@ -22,17 +22,17 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "./ui/form";
-import { Input } from "./ui/input";
+} from './ui/form';
+import { Input } from './ui/input';
 
 type Props = {
-  type: "income" | "expense";
+  type: 'income' | 'expense';
 };
 
 const createCategorySchema = z.object({
-  name: z.string().min(1, { message: "Category name is required" }),
-  icon: z.string().min(1, { message: "Category label is required" }),
-  type: z.enum(["income", "expense"]),
+  name: z.string().min(1, { message: 'Category name is required' }),
+  icon: z.string().min(1, { message: 'Category label is required' }),
+  type: z.enum(['income', 'expense']),
 });
 
 type CreateCategorySchema = z.infer<typeof createCategorySchema>;
@@ -41,8 +41,8 @@ const CategoryForm = ({ type, onClose }: Props & { onClose: () => void }) => {
   const form = useForm<CreateCategorySchema>({
     resolver: zodResolver(createCategorySchema),
     defaultValues: {
-      name: "",
-      icon: "",
+      name: '',
+      icon: '',
       type,
     },
   });
@@ -51,14 +51,14 @@ const CategoryForm = ({ type, onClose }: Props & { onClose: () => void }) => {
 
   const { mutate, isPending } = useMutation({
     mutationFn: async (data: CreateCategorySchema) => {
-      const res = await fetch("/api/categories", {
-        method: "POST",
+      const res = await fetch('/api/categories', {
+        method: 'POST',
         body: JSON.stringify(data),
       });
       return res.json();
     },
     onSuccess(res) {
-      qc.invalidateQueries({ queryKey: ["categories"] });
+      qc.invalidateQueries({ queryKey: ['categories'] });
       toast.success(res.msg);
     },
   });
@@ -110,7 +110,7 @@ export function CreateCategoryModal({ type }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant={"outline"}>
+        <Button variant={'outline'}>
           <PlusSquare className="mr-2 size-4" />
           Create Category
         </Button>
@@ -118,14 +118,14 @@ export function CreateCategoryModal({ type }: Props) {
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>
-            Create New{" "}
+            Create New{' '}
             <span
               className={
-                type === "income" ? "text-emerald-500" : "text-red-500"
+                type === 'income' ? 'text-emerald-500' : 'text-red-500'
               }
             >
               {type}
-            </span>{" "}
+            </span>{' '}
             Category
           </DialogTitle>
           <DialogDescription>

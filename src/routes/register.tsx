@@ -1,4 +1,4 @@
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -6,15 +6,15 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { z } from 'zod';
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { z } from "zod";
 
 const loginSchema = z.object({
   name: z.string().min(2),
@@ -30,24 +30,24 @@ function RegisterForm() {
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
+      name: "",
+      email: "",
+      password: "",
     },
   });
   const onSubmit = form.handleSubmit(async (data) => {
     setLoading(true);
-    const res = await fetch('/api/auth/register', {
-      method: 'POST',
+    const res = await fetch("/api/auth/register", {
+      method: "POST",
       body: JSON.stringify(data),
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     });
     if (res.ok) {
       setLoading(false);
-      toast.success('Account created successfully');
-      navigate('/dashboard');
+      toast.success("Account created successfully");
+      navigate("/dashboard");
     }
   });
 
@@ -101,7 +101,7 @@ function RegisterForm() {
   );
 }
 
-export function Register() {
+export default function Register() {
   return (
     <div className="flex h-dvh w-dvw flex-col items-center justify-center">
       <section className="mx-auto grid w-full max-w-xs gap-y-2">
@@ -110,7 +110,7 @@ export function Register() {
         </h1>
         <Separator />
         <RegisterForm />
-        <Link to={'/login'} className="mt-2 text-sm underline">
+        <Link to={"/login"} className="mt-2 text-sm underline">
           have an Account?
         </Link>
       </section>
