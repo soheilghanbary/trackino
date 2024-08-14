@@ -6,11 +6,15 @@ export function About() {
         <p className="font-medium">The minimal Expense Tracker</p>
         <ul>
           <li>
-            <span className="text-muted-foreground">Last Updated:</span>{' '}
+            <span className="text-muted-foreground">Last Updated:</span>{" "}
             {new Date().toLocaleDateString()}
           </li>
           <li>
             <span className="text-muted-foreground">Version:</span> 0.9.1
+          </li>
+          <li>
+            <span className="text-muted-foreground">Developed By:</span> Soheil
+            Ghanbary
           </li>
         </ul>
         <h2 className="font-bold text-lg">Stack🔥</h2>

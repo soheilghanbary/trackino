@@ -1,27 +1,103 @@
 import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { useAddTransaction } from '@/hooks/useTransaction';
+} from "@/components/ui/dialog";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { useAddTransaction } from "@/hooks/useTransaction";
 import {
   type CreateTransactionSchema,
   createTransactionSchema,
-} from '@/schemas/transaction';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { type ReactNode, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'sonner';
-import { Button } from './ui/button';
-import { Form, FormControl, FormField, FormItem, FormLabel } from './ui/form';
-import { Input } from './ui/input';
+} from "@/schemas/transaction";
+import { zodResolver } from "@hookform/resolvers/zod";
+import type { Category } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
+import { type ReactNode, useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
+import { Button } from "./ui/button";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "./ui/form";
+import { Input } from "./ui/input";
+
+type SelectCategoryProps = Pick<TransactionFormProps, "type"> & {
+  onChange: (categoryId: string) => void;
+};
+
+const SelectCategory = ({ type, onChange }: SelectCategoryProps) => {
+  const [open, setOpen] = useState(false);
+  const [selectedOption, selectOption] = useState<{
+    id: string;
+    name: string;
+    icon: string;
+  }>({
+    id: "",
+    name: "",
+    icon: "",
+  });
+  const { data, isLoading } = useQuery<Category[]>({
+    queryKey: ["categories", type],
+    queryFn: () =>
+      fetch(`/api/categories?type=${type}`).then((res) => res.json()),
+    refetchOnMount: false,
+    refetchOnWindowFocus: false,
+  });
+
+  return (
+    <Popover open={open} onOpenChange={setOpen}>
+      <PopoverTrigger asChild>
+        <Button variant="outline" className="w-full justify-start">
+          {selectedOption.id
+            ? `${selectedOption.icon} ${selectedOption.name}`
+            : "Select Category"}
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[200px] p-0" align="start">
+        <Command>
+          <CommandInput placeholder="Filter categories..." />
+          <CommandList>
+            <CommandEmpty>No results found.</CommandEmpty>
+            <CommandGroup>
+              {isLoading
+                ? null
+                : data?.map((c) => (
+                    <CommandItem
+                      key={c.id}
+                      value={c.name}
+                      onSelect={() => {
+                        onChange(c.id);
+                        selectOption(c);
+                        setOpen(false);
+                      }}
+                    >
+                      {c.icon} {c.name}
+                    </CommandItem>
+                  ))}
+            </CommandGroup>
+          </CommandList>
+        </Command>
+      </PopoverContent>
+    </Popover>
+  );
+};
 
 type TransactionFormProps = {
   onClose?: () => void;
-  type: 'income' | 'expense';
+  type: "income" | "expense";
 };
 
 const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
@@ -30,7 +106,7 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
     resolver: zodResolver(createTransactionSchema),
     defaultValues: {
       amount: 0,
-      description: '',
+      description: "",
       date: new Date(),
       type,
     },
@@ -39,7 +115,7 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
   const onSubmit = form.handleSubmit((data) => {
     mutate(data, {
       onSuccess() {
-        toast.success('Transaction created.');
+        toast.success("Transaction created.");
         form.reset();
         onClose?.();
       },
@@ -73,14 +149,26 @@ const TransactionForm = ({ onClose, type }: TransactionFormProps) => {
             </FormItem>
           )}
         />
-        <div className="flex items-center gap-3">
+        <FormField
+          control={form.control}
+          name="categoryId"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Category</FormLabel>
+              <FormControl>
+                <SelectCategory type={type} onChange={field.onChange} />
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <div className="grid grid-cols-2 items-center gap-4">
           <Button disabled={isPending} type="submit">
             Save
           </Button>
           <Button
             disabled={isPending}
             type="button"
-            variant={'secondary'}
+            variant={"secondary"}
             onClick={onClose}
           >
             Cancel
@@ -95,7 +183,7 @@ export function CreateTransactionModal({
   type,
   trigger,
 }: {
-  type: 'income' | 'expense';
+  type: "income" | "expense";
   trigger: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -105,14 +193,14 @@ export function CreateTransactionModal({
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle>
-            Create New{' '}
+            Create New{" "}
             <span
               className={
-                type === 'income' ? 'text-emerald-500' : 'text-red-500'
+                type === "income" ? "text-emerald-500" : "text-red-500"
               }
             >
               {type}
-            </span>{' '}
+            </span>{" "}
             Transaction
           </DialogTitle>
           <DialogDescription>

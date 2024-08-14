@@ -4,6 +4,7 @@ import { Hono } from "hono";
 import { cors } from "hono/cors";
 import { logger } from "hono/logger";
 import { authRoute } from "./routes/auth";
+import { categoryRoute } from "./routes/category";
 import { transactionRoute } from "./routes/transaction";
 import { userRoute } from "./routes/user";
 
@@ -26,6 +27,7 @@ const apiRoutes = app
   .route("/auth", authRoute)
   .route("/transactions", transactionRoute)
   .route("/user", userRoute)
+  .route("/categories", categoryRoute)
   .get("/hello", (c) => c.json({ msg: "Hello from Hono🔥!" }));
 
 // static files

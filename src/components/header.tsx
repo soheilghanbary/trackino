@@ -35,7 +35,7 @@ const CheckSigned = () => {
           <DropdownMenuItem asChild>
             <Link to={"/settings"}>
               <Settings className="mr-2 size-4" />
-              Settings
+              Manage
             </Link>
           </DropdownMenuItem>
           <DropdownMenuItem asChild>

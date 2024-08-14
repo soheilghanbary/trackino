@@ -1,16 +1,6 @@
-import { type Context, Hono } from "hono";
-import { getCookie } from "hono/cookie";
-import { verify } from "hono/jwt";
+import { verifyToken } from "@/server/lib/token";
+import { Hono } from "hono";
 import prisma from "../db";
-
-const JWT_SECRET = "your_secret_key";
-
-async function verifyToken(c: Context) {
-  const token = getCookie(c, "auth_token");
-  if (!token) throw new Error("Unauthorized");
-  const { userId } = (await verify(token, JWT_SECRET)) as { userId: string };
-  return { userId };
-}
 
 export const userRoute = new Hono().put("/", async (c) => {
   const { userId } = await verifyToken(c);
